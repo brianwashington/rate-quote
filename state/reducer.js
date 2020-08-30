@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 function rateQuotes(state = [], action) {
   switch (action.type) {
     case 'GET_RATE_QUOTES_SUCCESS':
-      return action.rateQuotes
+      return action.rateQuotes || state
 
     default:
       return state
@@ -23,7 +23,7 @@ function loanInfo(
     case 'UPDATE_LOAN_SIZE':
       return {
         ...state,
-        loanSize: action.input,
+        loanSize: +action.input,
       }
 
     case 'UPDATE_PROPERTY_TYPE':
@@ -35,7 +35,7 @@ function loanInfo(
     case 'UPDATE_CREDIT_SCORE':
       return {
         ...state,
-        creditScore: action.input,
+        creditScore: +action.input,
       }
 
     case 'UPDATE_OCCUPANCY':
