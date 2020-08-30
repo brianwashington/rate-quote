@@ -38,4 +38,46 @@ const fetchData = () => {
   }
 }
 
-export { fetchData }
+const updateLoanSize = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: 'UPDATE_LOAN_SIZE',
+      input,
+    })
+  }
+}
+
+const updatePropertyType = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: 'UPDATE_PROPERTY_TYPE',
+      input,
+    })
+  }
+}
+
+const updateCreditScore = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: 'UPDATE_CREDIT_SCORE',
+      input,
+    })
+  }
+}
+
+const updateOccupancy = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: 'UPDATE_OCCUPANCY',
+      input,
+    })
+  }
+}
+
+export {
+  fetchData,
+  updateLoanSize,
+  updatePropertyType,
+  updateCreditScore,
+  updateOccupancy,
+}

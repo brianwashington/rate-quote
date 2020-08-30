@@ -1,3 +1,5 @@
+import LoanInfo from '../components/LoanInfo'
+
 import { connect } from 'react-redux'
 import { fetchData } from '../state/actions'
 
@@ -8,9 +10,12 @@ function Home({ dispatch }) {
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <button type='submit'>Get Quotes</button>
-    </form>
+    <div>
+      <LoanInfo dispatch={dispatch} />
+      <form onSubmit={submitHandler}>
+        <button type='submit'>Get Quotes</button>
+      </form>
+    </div>
   )
 }
 
