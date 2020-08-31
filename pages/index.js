@@ -2,6 +2,13 @@ import LoanInfo from '../components/LoanInfo'
 
 import { connect } from 'react-redux'
 import { fetchData } from '../state/actions'
+import {
+  Container,
+  ButtonContainer,
+  SubmitButton,
+  ResultsTable,
+  ResultsTableRow,
+} from './index.style'
 
 function Home({ dispatch, rateQuotes }) {
   function submitHandler(e) {
@@ -24,41 +31,51 @@ function Home({ dispatch, rateQuotes }) {
   ]
 
   return (
-    <div>
+    <Container>
       <LoanInfo dispatch={dispatch} />
       <form onSubmit={submitHandler}>
-        <button type='submit'>Get Quotes</button>
+        <ButtonContainer>
+          <SubmitButton type='submit'>Get Quotes</SubmitButton>
+        </ButtonContainer>
       </form>
 
-      {tableHeaders.map((title) => (
-        <div>{title}</div>
-      ))}
+      <ResultsTable>
+        {tableHeaders.map((title, index) => (
+          <ResultsTableRow key={index}>{title}</ResultsTableRow>
+        ))}
 
-      {rateQuotes.map(
-        (
-          {
-            apr,
-            lenderName,
-            loanType,
-            interestRate,
-            closingCosts,
-            monthlyPayment,
-          },
-          index
-        ) => {
-          return (
-            <div key={index}>
-              <div>{lenderName}</div>
-              <div>{loanType}</div>
-              <div>{`${interestRate.toFixed(3)}%`}</div>
-              <div>{currencyFormatter.format(closingCosts)}</div>
-              <div>{currencyFormatter.format(monthlyPayment)}</div>
-              <div>{`${apr.toFixed(3)}%`}</div>
-            </div>
-          )
-        }
-      )}
-    </div>
+        {rateQuotes.map(
+          (
+            {
+              apr,
+              lenderName,
+              loanType,
+              interestRate,
+              closingCosts,
+              monthlyPayment,
+            },
+            index
+          ) => {
+            return (
+              <React.Fragment key={index}>
+                <ResultsTableRow>{lenderName}</ResultsTableRow>
+                <ResultsTableRow>{loanType}</ResultsTableRow>
+                <ResultsTableRow>{`${interestRate.toFixed(
+                  3
+                )}%`}</ResultsTableRow>
+                <ResultsTableRow>
+                  {currencyFormatter.format(closingCosts)}
+                </ResultsTableRow>
+                <ResultsTableRow>
+                  {currencyFormatter.format(monthlyPayment)}
+                </ResultsTableRow>
+                <ResultsTableRow>{`${apr.toFixed(3)}%`}</ResultsTableRow>
+              </React.Fragment>
+            )
+          }
+        )}
+      </ResultsTable>
+    </Container>
   )
 }
 

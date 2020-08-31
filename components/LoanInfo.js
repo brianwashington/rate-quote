@@ -5,6 +5,8 @@ import {
   updatePropertyType,
 } from '../state/actions'
 
+import { Container, Label } from './LoanInfo.style'
+
 export default function LoanInfo({ dispatch }) {
   function handleChange(event) {
     const { target } = event
@@ -30,12 +32,12 @@ export default function LoanInfo({ dispatch }) {
   }
 
   return (
-    <div>
-      <label htmlFor='loan-size'>
+    <Container>
+      <Label htmlFor='loan-size'>
         <span>Loan Size</span>
         <input onChange={handleChange} type='search' name='loan-size' />
-      </label>
-      <label htmlFor='property-type'>
+      </Label>
+      <Label htmlFor='property-type'>
         <span>Property Type</span>
         <select onChange={handleChange} name='property-type'>
           <option value='SingleFamily'>Single Family</option>
@@ -43,19 +45,19 @@ export default function LoanInfo({ dispatch }) {
           <option value='Townhouse'>Townhouse</option>
           <option value='MultiFamily'>Multi Family</option>
         </select>
-      </label>
-      <label htmlFor='credit-score'>
+      </Label>
+      <Label htmlFor='credit-score'>
         <span>Credit Score</span>
         <input onChange={handleChange} type='search' name='credit-score' />
-      </label>
-      <label htmlFor='occupancy'>
+      </Label>
+      <Label htmlFor='occupancy'>
         <span>Occupancy</span>
         <select onChange={handleChange} name='occupancy'>
           <option value='Primary'>Primary</option>
           <option value='Secondary'>Secondary</option>
           <option value='Investment'>Investment</option>
         </select>
-      </label>
-    </div>
+      </Label>
+    </Container>
   )
 }
