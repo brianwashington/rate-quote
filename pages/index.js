@@ -5,12 +5,15 @@ import { fetchData } from '../state/actions'
 import {
   Container,
   ButtonContainer,
+  LoanInfoContainer,
+  ResultsGrid,
+  ResultsItem,
+  ResultsItemLeftEnd,
+  ResultsItemRightEnd,
   SubmitButton,
-  ResultsTable,
-  ResultsTableRow,
 } from './index.style'
 
-function Home({ dispatch, rateQuotes }) {
+function Home({ dispatch, rateQuotes, showResults }) {
   function submitHandler(e) {
     e.preventDefault()
     dispatch(fetchData())
@@ -21,60 +24,64 @@ function Home({ dispatch, rateQuotes }) {
     currency: 'USD',
   })
 
-  const tableHeaders = [
-    'Lender',
-    'Product',
-    'Rate',
-    'Closing Costs',
-    'Monthly Payment',
-    'APR',
-  ]
-
   return (
     <Container>
-      <LoanInfo dispatch={dispatch} />
-      <form onSubmit={submitHandler}>
-        <ButtonContainer>
-          <SubmitButton type='submit'>Get Quotes</SubmitButton>
-        </ButtonContainer>
-      </form>
+      <LoanInfoContainer>
+        <LoanInfo dispatch={dispatch} />
+        <form onSubmit={submitHandler}>
+          <ButtonContainer>
+            <SubmitButton type='submit'>Quote Rates</SubmitButton>
+          </ButtonContainer>
+        </form>
 
-      <ResultsTable>
-        {tableHeaders.map((title, index) => (
-          <ResultsTableRow key={index}>{title}</ResultsTableRow>
-        ))}
+        {showResults && (
+          <ResultsGrid>
+            <ResultsItemLeftEnd header>Lender</ResultsItemLeftEnd>
+            <ResultsItem header>Product</ResultsItem>
+            <ResultsItem header>Rate</ResultsItem>
+            <ResultsItem header>Closing Costs</ResultsItem>
+            <ResultsItem header>Monthly Payment</ResultsItem>
+            <ResultsItemRightEnd header>APR</ResultsItemRightEnd>
 
-        {rateQuotes.map(
-          (
-            {
-              apr,
-              lenderName,
-              loanType,
-              interestRate,
-              closingCosts,
-              monthlyPayment,
-            },
-            index
-          ) => {
-            return (
-              <React.Fragment key={index}>
-                <ResultsTableRow>{lenderName}</ResultsTableRow>
-                <ResultsTableRow>{loanType}</ResultsTableRow>
-                <ResultsTableRow>{`${interestRate.toFixed(
-                  3
-                )}%`}</ResultsTableRow>
-                <ResultsTableRow>
-                  {currencyFormatter.format(closingCosts)}
-                </ResultsTableRow>
-                <ResultsTableRow>
-                  {currencyFormatter.format(monthlyPayment)}
-                </ResultsTableRow>
-                <ResultsTableRow>{`${apr.toFixed(3)}%`}</ResultsTableRow>
-              </React.Fragment>
-            )
-          }
+            {rateQuotes.map(
+              (
+                {
+                  apr,
+                  lenderName,
+                  loanType,
+                  interestRate,
+                  closingCosts,
+                  monthlyPayment,
+                },
+                index
+              ) => {
+                return (
+                  <React.Fragment key={index}>
+                    <ResultsItemLeftEnd last={index === rateQuotes.length - 1}>
+                      {lenderName}
+                    </ResultsItemLeftEnd>
+                    <ResultsItem last={index === rateQuotes.length - 1}>
+                      {loanType}
+                    </ResultsItem>
+                    <ResultsItem
+                      last={index === rateQuotes.length - 1}
+                    >{`${interestRate.toFixed(3)}%`}</ResultsItem>
+                    <ResultsItem last={index === rateQuotes.length - 1}>
+                      {currencyFormatter.format(closingCosts)}
+                    </ResultsItem>
+                    <ResultsItem last={index === rateQuotes.length - 1}>
+                      {currencyFormatter.format(monthlyPayment)}
+                    </ResultsItem>
+                    <ResultsItemRightEnd
+                      last={index === rateQuotes.length - 1}
+                    >{`${apr.toFixed(3)}%`}</ResultsItemRightEnd>
+                  </React.Fragment>
+                )
+              }
+            )}
+          </ResultsGrid>
         )}
-      </ResultsTable>
+      </LoanInfoContainer>
     </Container>
   )
 }
@@ -82,6 +89,7 @@ function Home({ dispatch, rateQuotes }) {
 const mapStateToProps = (state) => {
   return {
     rateQuotes: state.rateQuotes,
+    showResults: state.showResults,
   }
 }
 

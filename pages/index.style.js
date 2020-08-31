@@ -1,13 +1,18 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 50%;
+  width: 750px;
   margin: 100px auto;
+`
+
+export const LoanInfoContainer = styled.div`
+  margin-bottom: 50px;
 `
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin: 10px 0 30px 0;
 `
 
 export const SubmitButton = styled.button`
@@ -19,16 +24,38 @@ export const SubmitButton = styled.button`
   margin-top: 5px;
 `
 
-export const ResultsTable = styled.div`
+export const ResultsGrid = styled.div`
   display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr) 2fr 1fr;
+  grid-template-columns: 0.75fr repeat(5, 0.5fr);
   margin-top: 10px;
   align-items: center;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
 `
 
-export const ResultsTableRow = styled.div`
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  padding: 50px 0;
-  border-left: none;
-  border-right: none;
+export const ResultsItem = styled.div`
+  border-width: 2px 0 0px 0;
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+  white-space: nowrap;
+  border-width: ${(props) => (props.last ? '2px 0 2px 0' : '2px 0 0 0')};
+  padding: ${(props) => (props.header ? '25px 0' : '35px 0')};
+  color: ${(props) =>
+    props.header ? 'rgb(134, 151, 151)' : 'rgb(38, 67, 66)'};
+`
+export const ResultsItemLeftEnd = styled(ResultsItem)`
+  border-left-width: 2px;
+  padding-left: 10px;
+  padding-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const ResultsItemRightEnd = styled(ResultsItem)`
+  border-right-width: 2px;
+  padding-left: 20px;
 `

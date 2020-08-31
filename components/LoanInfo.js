@@ -5,7 +5,7 @@ import {
   updatePropertyType,
 } from '../state/actions'
 
-import { Container, Label } from './LoanInfo.style'
+import { Container, Input, Label, Select, Span } from './LoanInfo.style'
 
 export default function LoanInfo({ dispatch }) {
   function handleChange(event) {
@@ -34,29 +34,29 @@ export default function LoanInfo({ dispatch }) {
   return (
     <Container>
       <Label htmlFor='loan-size'>
-        <span>Loan Size</span>
-        <input onChange={handleChange} type='search' name='loan-size' />
+        <Span>Loan Size</Span>
+        <Input onChange={handleChange} type='search' name='loan-size' />
       </Label>
       <Label htmlFor='property-type'>
-        <span>Property Type</span>
-        <select onChange={handleChange} name='property-type'>
+        <Span>Property Type</Span>
+        <Select onChange={handleChange} name='property-type'>
           <option value='SingleFamily'>Single Family</option>
           <option value='Condo'>Condo</option>
           <option value='Townhouse'>Townhouse</option>
           <option value='MultiFamily'>Multi Family</option>
-        </select>
+        </Select>
       </Label>
       <Label htmlFor='credit-score'>
-        <span>Credit Score</span>
-        <input onChange={handleChange} type='search' name='credit-score' />
+        <Span>Credit Score</Span>
+        <Input onChange={handleChange} type='search' name='credit-score' />
       </Label>
       <Label htmlFor='occupancy'>
-        <span>Occupancy</span>
-        <select onChange={handleChange} name='occupancy'>
-          <option value='Primary'>Primary</option>
-          <option value='Secondary'>Secondary</option>
+        <Span>Occupancy</Span>
+        <Select onChange={handleChange} name='occupancy'>
+          <option value='Primary'>Primary Residence</option>
+          <option value='Secondary'>Secondary Residence</option>
           <option value='Investment'>Investment</option>
-        </select>
+        </Select>
       </Label>
     </Container>
   )
