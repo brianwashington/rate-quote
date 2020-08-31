@@ -24,13 +24,21 @@ const fetchData = () => {
       cache: 'default',
     }
 
-    const fetchRequest = await fetch(request, requestOptions)
-    const rateQuotes = await fetchRequest.json()
+    try {
+      const fetchRequest = await fetch(request, requestOptions)
+      const rateQuotes = await fetchRequest.json()
 
-    return dispatch({
-      type: 'GET_RATE_QUOTES_SUCCESS',
-      rateQuotes: rateQuotes.rateQuotes,
-    })
+      return dispatch({
+        type: 'GET_RATE_QUOTES_SUCCESS',
+        rateQuotes: rateQuotes.rateQuotes,
+      })
+    } catch (error) {
+      console.error('error', error)
+      return dispatch({
+        type: 'GET_RATE_QUOTES_FAILURE',
+        rateQuotes: [],
+      })
+    }
   }
 }
 

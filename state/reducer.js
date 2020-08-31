@@ -10,6 +10,19 @@ function rateQuotes(state = [], action) {
   }
 }
 
+function showResults(state = false, action) {
+  switch (action.type) {
+    case 'GET_RATE_QUOTES_SUCCESS':
+      return true
+
+    case 'GET_RATE_QUOTES_FAILURE':
+      return false
+
+    default:
+      return state
+  }
+}
+
 function loanInfo(
   state = {
     loanSize: null,
@@ -52,6 +65,7 @@ function loanInfo(
 const rootReducer = combineReducers({
   rateQuotes,
   loanInfo,
+  showResults,
 })
 
 export default rootReducer
