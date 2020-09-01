@@ -4,14 +4,21 @@ import LoanInfo from '../components/LoanInfo'
 import { connect } from 'react-redux'
 import {
   Container,
-  LoaderContainer,
-  LoanInfoContainer,
+  Error,
   Grid,
   GridItem,
+  LoaderContainer,
+  LoanInfoContainer,
 } from './index.style'
 import { formatCurrency } from '../lib/utils'
 
-function Home({ dispatch, isLoading, rateQuotes, showResults }) {
+function Home({
+  dispatch,
+  isLoading,
+  rateQuotes,
+  showResults,
+  showNetworkFail,
+}) {
   return (
     <Container>
       <LoanInfoContainer>
@@ -23,7 +30,13 @@ function Home({ dispatch, isLoading, rateQuotes, showResults }) {
           </LoaderContainer>
         )}
 
-        {showResults && (
+        {showNetworkFail && (
+          <LoaderContainer>
+            <Error>Error Retrieving Data. Please try again.</Error>
+          </LoaderContainer>
+        )}
+
+        {!isLoading && showResults && (
           <Grid name='results-grid'>
             <GridItem>Lender</GridItem>
             <GridItem>Product</GridItem>
@@ -67,6 +80,7 @@ const mapStateToProps = (state) => {
   return {
     isLoading: state.isLoading,
     rateQuotes: state.rateQuotes,
+    showNetworkFail: state.showNetworkFail,
     showResults: state.showResults,
   }
 }

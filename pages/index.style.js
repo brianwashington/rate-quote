@@ -91,3 +91,7 @@ export const GridItem = styled.div`
     border-bottom-width: 2px;
   }
 `
+
+export const Error = styled.div`
+  color: red;
+`

@@ -30,6 +30,11 @@ const fetchData = () => {
 
     try {
       const fetchRequest = await fetch(request, requestOptions)
+
+      if (fetchRequest && fetchRequest.status !== 200) {
+        throw 'Error reciving data from API'
+      }
+
       const rateQuotes = await fetchRequest.json()
 
       return dispatch({
@@ -37,7 +42,7 @@ const fetchData = () => {
         rateQuotes: rateQuotes.rateQuotes,
       })
     } catch (error) {
-      console.error('error', error)
+      console.error(error)
       return dispatch({
         type: 'GET_RATE_QUOTES_FAILURE',
         rateQuotes: [],

@@ -53,6 +53,7 @@ function loanInfo(
 function isLoading(state = false, action) {
   switch (action.type) {
     case 'GET_RATE_QUOTES_SUCCESS':
+    case 'GET_RATE_QUOTES_FAILURE':
       return false
 
     case 'GET_RATE_QUOTES_PENDING':
@@ -77,10 +78,25 @@ function showResults(state = false, action) {
   }
 }
 
+function showNetworkFail(state = false, action) {
+  switch (action.type) {
+    case 'GET_RATE_QUOTES_FAILURE':
+      return true
+
+    case 'GET_RATE_QUOTES_PENDING':
+    case 'GET_RATE_QUOTES_SUCCESS':
+      return false
+
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   isLoading,
   loanInfo,
   rateQuotes,
+  showNetworkFail,
   showResults,
 })
 

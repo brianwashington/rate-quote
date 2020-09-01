@@ -27,6 +27,9 @@ export default function LoanInfo({ dispatch }) {
   const [isCreditScoreValid, setIsCreditScoreValid] = useState(false)
   const [hasCreditScoreChanged, setHasCreditScoreChanged] = useState(false)
 
+  const minCreditScore = 300
+  const maxCreditScore = 800
+
   function isFormValid() {
     return !(isLoanSizeValid && isCreditScoreValid)
   }
@@ -61,7 +64,9 @@ export default function LoanInfo({ dispatch }) {
           setHasCreditScoreChanged(true)
         }
         setIsCreditScoreValid(
-          /^\d{3}$/.test(value) && value >= 300 && value <= 850
+          /^\d{3}$/.test(value) &&
+            value >= minCreditScore &&
+            value <= maxCreditScore
         )
         dispatch(updateCreditScore(value))
         break
@@ -115,7 +120,7 @@ export default function LoanInfo({ dispatch }) {
       <Label htmlFor='credit-score'>
         <Span>
           {!isCreditScoreValid && hasCreditScoreChanged ? (
-            <Error name='credit-score-error'>Enter value: 300 to 850</Error>
+            <Error name='credit-score-error'>{`Enter value: ${minCreditScore} to ${maxCreditScore}`}</Error>
           ) : (
             'Credit Score'
           )}
@@ -124,8 +129,8 @@ export default function LoanInfo({ dispatch }) {
           onChange={handleChange}
           type='number'
           name='credit-score'
-          min='300'
-          max='850'
+          min={minCreditScore}
+          max={maxCreditScore}
         />
       </Label>
       <Label htmlFor='occupancy'>
