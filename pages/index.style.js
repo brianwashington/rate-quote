@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 750px;
-  margin: 100px auto;
+  padding: 50px 20px;
+
+  @media (min-width: 1024px) {
+    width: 750px;
+    margin: 100px auto;
+  }
 `
 
 export const LoanInfoContainer = styled.div`
@@ -16,15 +20,24 @@ export const LoaderContainer = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr repeat(5, 0.5fr);
-  margin-top: 10px;
-  align-items: center;
-  font-size: 14px;
+  grid-template-columns: 100px repeat(5, 0.5fr);
+  overflow: scroll;
   text-overflow: ellipsis;
-  overflow: hidden;
   min-width: 0;
   min-height: 0;
-  width: 100%;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 200px repeat(5, 0.5fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 0.75fr repeat(5, 0.5fr);
+    margin-top: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+  }
 `
 
 export const GridItem = styled.div`
