@@ -47,7 +47,7 @@ export default function LoanInfo({ dispatch }) {
     switch (name) {
       case 'loan-size':
         setHasLoanSizeChanged(true)
-        setIsLoanSizeValid(/^\d+$/.test(value))
+        setIsLoanSizeValid(/^\d+$/.test(value) && +value >= 1)
         setLoanSize(value)
         dispatch(updateLoanSize(value))
         break
@@ -77,7 +77,7 @@ export default function LoanInfo({ dispatch }) {
       <Label htmlFor='loan-size'>
         <Span>
           {!isLoanSizeValid && hasLoanSizeChanged ? (
-            <Error>Please enter a value</Error>
+            <Error name='loan-size-error'>Please enter a value</Error>
           ) : (
             'Loan Size'
           )}
@@ -113,7 +113,7 @@ export default function LoanInfo({ dispatch }) {
       <Label htmlFor='credit-score'>
         <Span>
           {!isCreditScoreValid && hasCreditScoreChanged ? (
-            <Error>Enter value: 300 to 850</Error>
+            <Error name='credit-score-error'>Enter value: 300 to 850</Error>
           ) : (
             'Credit Score'
           )}

@@ -18,7 +18,7 @@ function Home({ dispatch, rateQuotes, showResults }) {
         <LoanInfo dispatch={dispatch} />
 
         {showResults && (
-          <ResultsGrid>
+          <ResultsGrid name='results-grid'>
             <ResultsItemLeftEnd header>Lender</ResultsItemLeftEnd>
             <ResultsItem header>Product</ResultsItem>
             <ResultsItem header>Rate</ResultsItem>
