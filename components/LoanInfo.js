@@ -97,7 +97,9 @@ export default function LoanInfo({ dispatch }) {
             name='loan-size'
             type='text'
             placeholder='$'
-            readOnly
+            /*this is just to prevent a warning in the console. 
+            I removed the readOnly attribute so that this will work on mobile devices*/
+            onChange={() => {}}
           />
         )}
       </Label>
