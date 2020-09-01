@@ -1,14 +1,7 @@
 import LoanInfo from '../components/LoanInfo'
 
 import { connect } from 'react-redux'
-import {
-  Container,
-  LoanInfoContainer,
-  ResultsGrid,
-  ResultsItem,
-  ResultsItemLeftEnd,
-  ResultsItemRightEnd,
-} from './index.style'
+import { Container, LoanInfoContainer, Grid, GridItem } from './index.style'
 import { formatCurrency } from '../lib/utils'
 
 function Home({ dispatch, rateQuotes, showResults }) {
@@ -18,13 +11,13 @@ function Home({ dispatch, rateQuotes, showResults }) {
         <LoanInfo dispatch={dispatch} />
 
         {showResults && (
-          <ResultsGrid name='results-grid'>
-            <ResultsItemLeftEnd header>Lender</ResultsItemLeftEnd>
-            <ResultsItem header>Product</ResultsItem>
-            <ResultsItem header>Rate</ResultsItem>
-            <ResultsItem header>Closing Costs</ResultsItem>
-            <ResultsItem header>Monthly Payment</ResultsItem>
-            <ResultsItemRightEnd header>APR</ResultsItemRightEnd>
+          <Grid name='results-grid'>
+            <GridItem>Lender</GridItem>
+            <GridItem>Product</GridItem>
+            <GridItem>Rate</GridItem>
+            <GridItem>Closing Costs</GridItem>
+            <GridItem>Monthly Payment</GridItem>
+            <GridItem>APR</GridItem>
 
             {rateQuotes.map(
               (
@@ -40,29 +33,17 @@ function Home({ dispatch, rateQuotes, showResults }) {
               ) => {
                 return (
                   <React.Fragment key={index}>
-                    <ResultsItemLeftEnd last={index === rateQuotes.length - 1}>
-                      {lenderName}
-                    </ResultsItemLeftEnd>
-                    <ResultsItem last={index === rateQuotes.length - 1}>
-                      {loanType}
-                    </ResultsItem>
-                    <ResultsItem
-                      last={index === rateQuotes.length - 1}
-                    >{`${interestRate.toFixed(3)}%`}</ResultsItem>
-                    <ResultsItem last={index === rateQuotes.length - 1}>
-                      {formatCurrency(closingCosts)}
-                    </ResultsItem>
-                    <ResultsItem last={index === rateQuotes.length - 1}>
-                      {formatCurrency(monthlyPayment)}
-                    </ResultsItem>
-                    <ResultsItemRightEnd
-                      last={index === rateQuotes.length - 1}
-                    >{`${apr.toFixed(3)}%`}</ResultsItemRightEnd>
+                    <GridItem>{lenderName}</GridItem>
+                    <GridItem>{loanType}</GridItem>
+                    <GridItem>{`${interestRate.toFixed(3)}%`}</GridItem>
+                    <GridItem>{formatCurrency(closingCosts)}</GridItem>
+                    <GridItem>{formatCurrency(monthlyPayment)}</GridItem>
+                    <GridItem>{`${apr.toFixed(3)}%`}</GridItem>
                   </React.Fragment>
                 )
               }
             )}
-          </ResultsGrid>
+          </Grid>
         )}
       </LoanInfoContainer>
     </Container>
