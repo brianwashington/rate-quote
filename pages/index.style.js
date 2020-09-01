@@ -9,21 +9,6 @@ export const LoanInfoContainer = styled.div`
   margin-bottom: 50px;
 `
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin: 10px 0 30px 0;
-`
-
-export const SubmitButton = styled.button`
-  color: white;
-  background-color: rgb(32, 62, 61);
-  border: none;
-  padding: 15px;
-  border-radius: 3px;
-  margin-top: 5px;
-`
-
 export const ResultsGrid = styled.div`
   display: grid;
   grid-template-columns: 0.75fr repeat(5, 0.5fr);

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   updateCreditScore,
   updateLoanSize,
@@ -5,15 +6,49 @@ import {
   updatePropertyType,
 } from '../state/actions'
 
-import { Container, Input, Label, Select, Span } from './LoanInfo.style'
+import {
+  ButtonContainer,
+  Error,
+  Form,
+  Input,
+  Label,
+  Select,
+  Span,
+  SubmitButton,
+} from './LoanInfo.style'
+import { fetchData } from '../state/actions'
+import { formatCurrency } from '../lib/utils'
 
 export default function LoanInfo({ dispatch }) {
+  const [loanSize, setLoanSize] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
+  const [isLoanSizeValid, setIsLoanSizeValid] = useState(false)
+  const [hasLoanSizeChanged, setHasLoanSizeChanged] = useState(false)
+  const [isCreditScoreValid, setIsCreditScoreValid] = useState(false)
+  const [hasCreditScoreChanged, setHasCreditScoreChanged] = useState(false)
+
+  function isFormValid() {
+    return !(isLoanSizeValid && isCreditScoreValid)
+  }
+
+  function toggleEditing() {
+    setIsEditing(!isEditing)
+  }
+
+  function submitHandler(e) {
+    e.preventDefault()
+    dispatch(fetchData())
+  }
+
   function handleChange(event) {
     const { target } = event
     const { name, value } = target
 
     switch (name) {
       case 'loan-size':
+        setHasLoanSizeChanged(true)
+        setIsLoanSizeValid(/^\d+$/.test(value))
+        setLoanSize(value)
         dispatch(updateLoanSize(value))
         break
 
@@ -22,6 +57,12 @@ export default function LoanInfo({ dispatch }) {
         break
 
       case 'credit-score':
+        if (value.length >= 3) {
+          setHasCreditScoreChanged(true)
+        }
+        setIsCreditScoreValid(
+          /^\d{3}$/.test(value) && value >= 300 && value <= 850
+        )
         dispatch(updateCreditScore(value))
         break
 
@@ -32,10 +73,33 @@ export default function LoanInfo({ dispatch }) {
   }
 
   return (
-    <Container>
+    <Form onSubmit={submitHandler}>
       <Label htmlFor='loan-size'>
-        <Span>Loan Size</Span>
-        <Input onChange={handleChange} type='search' name='loan-size' />
+        <Span>
+          {!isLoanSizeValid && hasLoanSizeChanged ? (
+            <Error>Please enter a value</Error>
+          ) : (
+            'Loan Size'
+          )}
+        </Span>
+        {isEditing ? (
+          <Input
+            onChange={handleChange}
+            onBlur={toggleEditing}
+            name='loan-size'
+            type='number'
+            value={loanSize}
+          />
+        ) : (
+          <Input
+            onFocus={toggleEditing}
+            value={loanSize ? formatCurrency(loanSize, false) : ''}
+            name='loan-size'
+            type='text'
+            placeholder='$'
+            readOnly
+          />
+        )}
       </Label>
       <Label htmlFor='property-type'>
         <Span>Property Type</Span>
@@ -47,8 +111,20 @@ export default function LoanInfo({ dispatch }) {
         </Select>
       </Label>
       <Label htmlFor='credit-score'>
-        <Span>Credit Score</Span>
-        <Input onChange={handleChange} type='search' name='credit-score' />
+        <Span>
+          {!isCreditScoreValid && hasCreditScoreChanged ? (
+            <Error>Enter value: 300 to 850</Error>
+          ) : (
+            'Credit Score'
+          )}
+        </Span>
+        <Input
+          onChange={handleChange}
+          type='number'
+          name='credit-score'
+          min='300'
+          max='850'
+        />
       </Label>
       <Label htmlFor='occupancy'>
         <Span>Occupancy</Span>
@@ -58,6 +134,12 @@ export default function LoanInfo({ dispatch }) {
           <option value='Investment'>Investment</option>
         </Select>
       </Label>
-    </Container>
+      <div>&nbsp;</div> {/* <!-- empty space to keep grid aligned --> */}
+      <ButtonContainer>
+        <SubmitButton type='submit' disabled={isFormValid()}>
+          Quote Rates
+        </SubmitButton>
+      </ButtonContainer>
+    </Form>
   )
 }

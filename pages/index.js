@@ -1,38 +1,21 @@
 import LoanInfo from '../components/LoanInfo'
 
 import { connect } from 'react-redux'
-import { fetchData } from '../state/actions'
 import {
   Container,
-  ButtonContainer,
   LoanInfoContainer,
   ResultsGrid,
   ResultsItem,
   ResultsItemLeftEnd,
   ResultsItemRightEnd,
-  SubmitButton,
 } from './index.style'
+import { formatCurrency } from '../lib/utils'
 
 function Home({ dispatch, rateQuotes, showResults }) {
-  function submitHandler(e) {
-    e.preventDefault()
-    dispatch(fetchData())
-  }
-
-  const currencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  })
-
   return (
     <Container>
       <LoanInfoContainer>
         <LoanInfo dispatch={dispatch} />
-        <form onSubmit={submitHandler}>
-          <ButtonContainer>
-            <SubmitButton type='submit'>Quote Rates</SubmitButton>
-          </ButtonContainer>
-        </form>
 
         {showResults && (
           <ResultsGrid>
@@ -67,10 +50,10 @@ function Home({ dispatch, rateQuotes, showResults }) {
                       last={index === rateQuotes.length - 1}
                     >{`${interestRate.toFixed(3)}%`}</ResultsItem>
                     <ResultsItem last={index === rateQuotes.length - 1}>
-                      {currencyFormatter.format(closingCosts)}
+                      {formatCurrency(closingCosts)}
                     </ResultsItem>
                     <ResultsItem last={index === rateQuotes.length - 1}>
-                      {currencyFormatter.format(monthlyPayment)}
+                      {formatCurrency(monthlyPayment)}
                     </ResultsItem>
                     <ResultsItemRightEnd
                       last={index === rateQuotes.length - 1}

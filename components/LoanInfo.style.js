@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
@@ -29,4 +29,24 @@ export const Select = styled.select`
   border: 2px solid rgba(128, 128, 128, 0.2);
   padding: 5px;
   font-size: 14px;
+`
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0 30px 0;
+`
+
+export const SubmitButton = styled.button`
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 3px;
+  margin-top: 5px;
+  background-color: ${(props) =>
+    props.disabled ? 'rgba(32, 62, 61, 0.7)' : 'rgba(32, 62, 61, 1)'};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'default')};
+`
+export const Error = styled.small`
+  color: red;
 `
