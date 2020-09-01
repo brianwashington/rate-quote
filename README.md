@@ -4,11 +4,19 @@ For the take home test I decided to do the front-end project. I provide instruct
 
 ## Getting Started
 
-Before running the application, an `env.local` file is required to run the app properly. Also a `cypress.json` file is required to run the integration tests as intended.
+Before running the application, an `.env.local` file is required to run the app properly. Also a `cypress.json` file is required to run the integration tests as intended.
 
 I included sample files with dummy values for the api key and api url. If you replace those dummy values with real values and rename the files to those previously mentioned, everything should run properly.
 
-With that out of the way, to run the development server:
+With that out of the way, first run:
+
+```bash
+yarn
+```
+
+to install the required packages.
+
+Then to run the development server:
 
 ```bash
 npm run dev
