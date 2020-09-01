@@ -9,6 +9,11 @@ export const LoanInfoContainer = styled.div`
   margin-bottom: 50px;
 `
 
+export const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 0.75fr repeat(5, 0.5fr);

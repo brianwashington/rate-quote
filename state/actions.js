@@ -2,6 +2,10 @@ import { stringifyUrl } from 'query-string'
 
 const fetchData = () => {
   return async (dispatch, getState) => {
+    dispatch({
+      type: 'GET_RATE_QUOTES_PENDING',
+    })
+
     const state = getState()
     const { loanInfo } = state
 

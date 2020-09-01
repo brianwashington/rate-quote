@@ -10,19 +10,6 @@ function rateQuotes(state = [], action) {
   }
 }
 
-function showResults(state = false, action) {
-  switch (action.type) {
-    case 'GET_RATE_QUOTES_SUCCESS':
-      return true
-
-    case 'GET_RATE_QUOTES_FAILURE':
-      return false
-
-    default:
-      return state
-  }
-}
-
 function loanInfo(
   state = {
     loanSize: null,
@@ -62,9 +49,38 @@ function loanInfo(
   }
 }
 
+// UI State
+function isLoading(state = false, action) {
+  switch (action.type) {
+    case 'GET_RATE_QUOTES_SUCCESS':
+      return false
+
+    case 'GET_RATE_QUOTES_PENDING':
+      return true
+
+    default:
+      return state
+  }
+}
+
+function showResults(state = false, action) {
+  switch (action.type) {
+    case 'GET_RATE_QUOTES_SUCCESS':
+      return true
+
+    case 'GET_RATE_QUOTES_FAILURE':
+    case 'GET_RATE_QUOTES_PENDING':
+      return false
+
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
-  rateQuotes,
+  isLoading,
   loanInfo,
+  rateQuotes,
   showResults,
 })
 

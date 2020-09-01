@@ -1,14 +1,27 @@
+import PacmanLoader from 'react-spinners/PacmanLoader'
 import LoanInfo from '../components/LoanInfo'
 
 import { connect } from 'react-redux'
-import { Container, LoanInfoContainer, Grid, GridItem } from './index.style'
+import {
+  Container,
+  LoaderContainer,
+  LoanInfoContainer,
+  Grid,
+  GridItem,
+} from './index.style'
 import { formatCurrency } from '../lib/utils'
 
-function Home({ dispatch, rateQuotes, showResults }) {
+function Home({ dispatch, isLoading, rateQuotes, showResults }) {
   return (
     <Container>
       <LoanInfoContainer>
         <LoanInfo dispatch={dispatch} />
+
+        {isLoading && !showResults && (
+          <LoaderContainer>
+            <PacmanLoader color='#6AD4B9' size={75} />
+          </LoaderContainer>
+        )}
 
         {showResults && (
           <Grid name='results-grid'>
@@ -52,6 +65,7 @@ function Home({ dispatch, rateQuotes, showResults }) {
 
 const mapStateToProps = (state) => {
   return {
+    isLoading: state.isLoading,
     rateQuotes: state.rateQuotes,
     showResults: state.showResults,
   }
