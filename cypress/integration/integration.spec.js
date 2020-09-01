@@ -1,4 +1,4 @@
-describe.only('Visits Rate Quotes ', () => {
+describe('Visits Rate Quotes ', () => {
   it('Fills and Submits Form', () => {
     cy.visit('http://localhost:3000')
 
